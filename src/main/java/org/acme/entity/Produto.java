@@ -3,8 +3,11 @@ package org.acme.entity;
 import io.quarkus.hibernate.panache.PanacheEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import org.acme.service.ProdutoService;
 
 @Entity
+@Table(name = "products")
 public class Produto extends PanacheEntity {
     @Column
     private String nome;
@@ -14,6 +17,8 @@ public class Produto extends PanacheEntity {
     private Double preco;
     @Column
     private int estoque;
+
+    protected Produto() {}
 
     public Produto(String nome, String descricao, Double preco, int estoque) {
         this.nome = nome;
