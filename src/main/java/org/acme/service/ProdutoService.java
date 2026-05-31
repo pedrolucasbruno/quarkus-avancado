@@ -5,6 +5,7 @@ import jakarta.transaction.Transactional;
 import org.acme.dto.ProdutoRequestDTO;
 import org.acme.dto.ProdutoResponseDTO;
 import org.acme.entity.Produto;
+import org.acme.exceptions.GenericoException;
 import org.acme.repository.ProdutoRepository;
 
 import java.util.List;
@@ -25,7 +26,8 @@ public class ProdutoService {
     }
 
     public ProdutoResponseDTO consultarProdutoPorId(Long id) {
-        return mapToProdutoResponseDTO(produtoRepository.findById(id));
+        return mapToProdutoResponseDTO(produtoRepository.findByIdOptional(id)
+                .orElseThrow(() -> new GenericoException(404, "Produto não encontrado")));
     }
 
     @Transactional
@@ -37,7 +39,8 @@ public class ProdutoService {
 
     @Transactional
     public ProdutoResponseDTO editarProduto(Long id, ProdutoRequestDTO produtoRequestDTO) {
-        Produto produto = produtoRepository.findById(id);
+        Produto produto = produtoRepository.findByIdOptional(id)
+                .orElseThrow(() -> new GenericoException(404, "Produto não encontrado"));
         produto.setDescricao(produtoRequestDTO.descricao());
         produto.setNome(produtoRequestDTO.nome());
         produto.setPreco(produtoRequestDTO.preco());
@@ -48,7 +51,9 @@ public class ProdutoService {
 
     @Transactional
     public void excluirProduto(Long id) {
-        produtoRepository.findById(id).delete();
+        produtoRepository.findByIdOptional(id)
+                .orElseThrow(() -> new GenericoException(404, "Produto não encontrado"))
+                .delete();
     }
 
     public ProdutoResponseDTO mapToProdutoResponseDTO(Produto produto) {

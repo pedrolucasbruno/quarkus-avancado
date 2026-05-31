@@ -1,0 +1,2 @@
+INSERT INTO users (nome, email, senha, role) VALUES ('Administrador', 'admin@loja.com', '$2a$10$p49FeNvo7tzvjVBlCdZ0AuIFZ2XwOeqLsVXpbxtJgYLjgMM8Ifc/y', 'ADMIN');
+INSERT INTO users (nome, email, senha, role) VALUES ('Usuário Teste', 'user@loja.com', '$2a$10$FSEtzKXgyg17cThM40zq6u/ghivKSBtRsG/JfSbgW3qIh8TUqxmIO', 'USER');

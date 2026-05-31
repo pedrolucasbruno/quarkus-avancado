@@ -5,6 +5,6 @@ public record ProdutoResponseDTO(
         String nome,
         String descricao,
         Double preco,
-        int estoque
+        Integer estoque
 ) {
 }

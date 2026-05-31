@@ -1,6 +1,5 @@
 package org.acme.resource;
 
-import io.quarkus.security.Authenticated;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -19,7 +18,7 @@ public class ProdutoResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Authenticated
+    @RolesAllowed({"ADMIN", "USER"})
     public Response listarProdutos() {
         return Response.ok(produtoService.listarProdutos()).build();
     }
@@ -27,7 +26,7 @@ public class ProdutoResource {
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    @Authenticated
+    @RolesAllowed({"ADMIN", "USER"})
     public Response consultarProdutoPorId(Long id) {
         return Response.ok(produtoService.consultarProdutoPorId(id)).build();
     }
@@ -37,7 +36,7 @@ public class ProdutoResource {
     @Produces(MediaType.APPLICATION_JSON)
     @RolesAllowed("ADMIN")
     public Response criarProduto(ProdutoRequestDTO produtoRequestDTO) {
-        return Response.ok(produtoService.criarProduto(produtoRequestDTO)).build();
+        return Response.status(201).entity(produtoService.criarProduto(produtoRequestDTO)).build();
     }
 
     @PUT

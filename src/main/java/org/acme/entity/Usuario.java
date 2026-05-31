@@ -1,24 +1,31 @@
 package org.acme.entity;
 
 import io.quarkus.elytron.security.common.BcryptUtil;
-import io.quarkus.hibernate.panache.PanacheEntity;
+import io.quarkus.hibernate.panache.PanacheEntityBase;
 import io.quarkus.security.jpa.Password;
 import io.quarkus.security.jpa.Roles;
 import io.quarkus.security.jpa.UserDefinition;
 import io.quarkus.security.jpa.Username;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "users")
 @UserDefinition
-public class Usuario extends PanacheEntity {
+public class Usuario extends PanacheEntityBase {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @NotBlank
     private String nome;
     @Username
+    @NotBlank
     private String email;
     @Password
+    @NotBlank
     private String senha;
     @Roles
+    @NotBlank
     private String role;
 
     protected Usuario () {}

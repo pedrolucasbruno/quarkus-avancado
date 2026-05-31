@@ -1,26 +1,28 @@
 package org.acme.entity;
 
-import io.quarkus.hibernate.panache.PanacheEntity;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import org.acme.service.ProdutoService;
+import io.quarkus.hibernate.panache.PanacheEntityBase;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "products")
-public class Produto extends PanacheEntity {
-    @Column
+public class Produto extends PanacheEntityBase {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @NotBlank
     private String nome;
-    @Column
+    @NotBlank
     private String descricao;
-    @Column
+    @NotNull
     private Double preco;
-    @Column
-    private int estoque;
+    @NotNull
+    private Integer estoque;
 
     protected Produto() {}
 
-    public Produto(String nome, String descricao, Double preco, int estoque) {
+    public Produto(String nome, String descricao, Double preco, Integer estoque) {
         this.nome = nome;
         this.descricao = descricao;
         this.preco = preco;
@@ -55,11 +57,11 @@ public class Produto extends PanacheEntity {
         this.preco = preco;
     }
 
-    public int getEstoque() {
+    public Integer getEstoque() {
         return estoque;
     }
 
-    public void setEstoque(int estoque) {
+    public void setEstoque(Integer estoque) {
         this.estoque = estoque;
     }
 }

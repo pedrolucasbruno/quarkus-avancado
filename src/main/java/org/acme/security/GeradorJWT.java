@@ -6,6 +6,11 @@ public class GeradorJWT {
 
     public static String gerarToken(String email, String role) {
 
-        return Jwt.claims().issuer("http://localhost:8080/issuer").upn(email).groups(role).sign();
+        return Jwt.claims().
+                issuer("http://localhost:8080/issuer")
+                .upn(email)
+                .groups(role)
+                .expiresIn(3600)
+                .sign();
     }
 }

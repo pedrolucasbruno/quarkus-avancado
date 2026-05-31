@@ -19,7 +19,7 @@ public class UsuarioResource {
     @POST
     @Path("/register")
     public Response criarUsuario(UsuarioRequestDTO usuarioRequest) {
-        return Response.ok().entity(usuarioService.criarUsuario(usuarioRequest)).build();
+        return Response.status(201).entity(usuarioService.criarUsuario(usuarioRequest)).build();
     }
 
     @POST
